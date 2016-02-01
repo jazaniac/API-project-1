@@ -9,6 +9,6 @@ var CharacterSchema = new Schema({
     
 });
 
-var Account = mongoose.model('Character', AccountSchema);
+var Character = mongoose.model('Character', CharacterSchema);
 
 module.exports = Character;

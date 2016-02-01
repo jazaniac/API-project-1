@@ -3,8 +3,9 @@ var app = express();
 var Character = require('./models/character.js');
 var mongoose = require('mongoose')
 var bodyParser = require('body-parser');
+
 app.use(bodyParser.urlencoded({
-	extended: true;
+	extended: true
 }));
 
 mongoose.connect('mongodb://localhost:27017/newnode', function(error){
@@ -20,11 +21,11 @@ var port = 8001;
 var router = express.Router();
 
 router.get('/', function(req, res) {
- res.json({message:"API live"})   
+ res.json({message:"API live"});  
 });
 
 
-router.get('/getCharacter', funciton(req, res){
+router.get('/getCharacter', function(req, res) {
 	var name = res.query.name;
 	if(name) {
         Character.findOne({name:name}, function(error, result){
@@ -40,7 +41,9 @@ router.get('/getCharacter', funciton(req, res){
 });
 
 
-})
+
+
+
 
 router.post('/makeCharacter', function(req, res){
 	var name = req.body.name;
