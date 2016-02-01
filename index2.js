@@ -26,7 +26,9 @@ router.get('/', function(req, res) {
 
 
 router.get('/getCharacter', function(req, res) {
-	var name = res.query.name;
+	var name = req.query.name;
+    var type = req.query.type;
+    var age = req.query.age;
 	if(name) {
         Character.findOne({name:name}, function(error, result){
         	if(error) {
