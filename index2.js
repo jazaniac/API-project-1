@@ -24,13 +24,59 @@ router.get('/', function(req, res) {
  res.json({message:"API live"});  
 });
 
-
 router.get('/getCharacter', function(req, res) {
 	var name = req.query.name;
-    var type = req.query.type;
-    var age = req.query.age;
 	if(name) {
-        Character.findOne({name:name}, function(error, result){
+        Name.findOne({name:name,
+                     age:age,
+                      type:type
+                     }, function(error, result){
+        	if(error) {
+        		console.log(error);
+        		res.status(500).json({error:"I am become error"});
+        	}
+        	res.json(result);
+        });
+        } else {
+    res.status(400).json({error:"character does not exist"})
+        }
+});
+
+
+router.get('/getName', function(req, res) {
+	var name = req.query.name;
+	if(name) {
+        Name.findOne({name:name}, function(error, result){
+        	if(error) {
+        		console.log(error);
+        		res.status(500).json({error:"I am become error"});
+        	}
+        	res.json(result);
+        });
+        } else {
+    res.status(400).json({error:"character does not exist"})
+        }
+});
+
+router.get('/getAge', function(req, res) {
+	var age = req.query.age;
+	if(age) {
+       Age.findOne({age:age}, function(error, result){
+        	if(error) {
+        		console.log(error);
+        		res.status(500).json({error:"I am become error"});
+        	}
+        	res.json(result);
+        });
+        } else {
+    res.status(400).json({error:"character does not exist"})
+        }
+});
+
+router.get('/getType', function(req, res) {
+	var type = req.query.type;
+	if(type) {
+        Type.findOne({type:type}, function(error, result){
         	if(error) {
         		console.log(error);
         		res.status(500).json({error:"I am become error"});
@@ -47,19 +93,41 @@ router.get('/getCharacter', function(req, res) {
 
 
 
-router.post('/makeCharacter', function(req, res){
+
+router.post('/makeName', function(req, res){
 	var name = req.body.name;
-	var type = req.body.type;
-	var age = req.body.age;
-	Character.create({
+	Name.create({
 			name:name,
-			type:type,
-			age:age}, function(err, result) {
+			}, function(err, result) {
 				if(err) res.status(500).json({error:"error creating character"})
-					res.json({message:"character created", character:result});
+					res.json({message:"character created", name:result});
 			});
 
 })
+
+router.post('/makeAge', function(req, res){
+	var age = req.body.age;
+	Age.create({
+			age:age}, function(err, result) {
+				if(err) res.status(500).json({error:"error creating character"})
+					res.json({message:"character created", age:result});
+			});
+
+})
+
+router.post('/makeType', function(req, res){
+	var type = req.body.type;
+	Type.create({
+			type:type}, function(err, result) {
+				if(err) res.status(500).json({error:"error creating character"})
+					res.json({message:"character created", type:result});
+			});
+
+})
+
+
+
+    
 
 app.use('/api', router);
 app.listen(port);
