@@ -3,7 +3,7 @@ var app = express();
 var models = require('./models/character.js');
 var mongoose = require('mongoose')
 var bodyParser = require('body-parser');
-var Character = models.Character;
+
 var Type = models.Type;
 var Age = models.Age;
 var Name = models.Name;
@@ -29,25 +29,6 @@ var router = express.Router();
 router.get('/', function(req, res) {
  res.json({message:"API live"});  
 });
-
-router.get('/getCharacter', function(req, res) {
-	var name = req.query.name;
-	if(name) {
-        Name.findOne({name:name,
-                     age:age,
-                      type:type
-                     }, function(error, result){
-        	if(error) {
-        		console.log(error);
-        		res.status(500).json({error:"I am become error"});
-        	}
-        	res.json(result);
-        });
-        } else {
-    res.status(400).json({error:"character does not exist"})
-        }
-});
-
 
 router.get('/getName', function(req, res) {
 	var name = req.query.name;
