@@ -31,10 +31,9 @@ var Age = mongoose.model('Age', AgeSchema);
 
 var Type = mongoose.model('Type', TypeSchema);
 
-module.exports = Character;
-
-module.exports = Name;
-
-module.exports = Age;
-
-module.exports = Type;
+module.exports = {
+    Character: Character,
+    Name: Name,
+    Age: Age,
+    Type: Type
+}

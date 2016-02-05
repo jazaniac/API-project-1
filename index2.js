@@ -1,12 +1,18 @@
 var express = require("express");
 var app = express();
-var Character = require('./models/character.js');
+var models = require('./models/character.js');
 var mongoose = require('mongoose')
 var bodyParser = require('body-parser');
+var Character = models.Character;
+var Type = models.Type;
+var Age = models.Age;
+var Name = models.Name;
 
 app.use(bodyParser.urlencoded({
 	extended: true
 }));
+
+app.use(bodyParser.json());
 
 mongoose.connect('mongodb://localhost:27017/newnode', function(error){
         if(error) {
